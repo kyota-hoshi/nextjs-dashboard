@@ -5,6 +5,8 @@ import {
   CustomersTableType,
   FormattedCustomersTable,
 } from '@/app/lib/definitions';
+import { Suspense } from 'react';
+import { TableRowSkeleton } from '../skeletons';
 
 export default async function CustomersTable({
   customers,
@@ -84,6 +86,7 @@ export default async function CustomersTable({
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 text-gray-900">
+                  <Suspense fallback={<TableRowSkeleton />} >
                   {customers.map((customer) => (
                     <tr key={customer.id} className="group">
                       <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
@@ -112,6 +115,7 @@ export default async function CustomersTable({
                       </td>
                     </tr>
                   ))}
+                  </Suspense>
                 </tbody>
               </table>
             </div>
